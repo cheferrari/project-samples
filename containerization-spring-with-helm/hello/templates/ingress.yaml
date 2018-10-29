@@ -6,10 +6,10 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    app: {{ include "hello.name" . }}
-    chart: {{ include "hello.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "hello.name" . }}
+    helm.sh/chart: {{ include "hello.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- with .Values.ingress.annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
@@ -27,8 +27,8 @@ spec:
     - host: {{.Values.ingress.host}}
       http:
         paths:
-        - path: {{ $ingressPath }}
-          backend:
-            serviceName: {{ $fullName }}
-            servicePort: http
+          - path: {{ $ingressPath }}
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
 {{- end }}

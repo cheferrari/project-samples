@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{ include "hello.fullname" . }}
   labels:
-    app: {{ include "hello.name" . }}
-    chart: {{ include "hello.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "hello.name" . }}
+    helm.sh/chart: {{ include "hello.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ include "hello.name" . }}
-    release: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "hello.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
