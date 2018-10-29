@@ -1,22 +1,22 @@
-apiVersion: apps/v1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "chart.fullname" . }}
+  name: {{ include "chart.fullname" . }}
   labels:
-    app: {{ template "chart.name" . }}
-    chart: {{ template "chart.chart" . }}
+    app: {{ include "chart.name" . }}
+    chart: {{ include "chart.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "chart.name" . }}
+      app: {{ include "chart.name" . }}
       release: {{ .Release.Name }}
-  template:
+  include:
     metadata:
       labels:
-        app: {{ template "chart.name" . }}
+        app: {{ include "chart.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
