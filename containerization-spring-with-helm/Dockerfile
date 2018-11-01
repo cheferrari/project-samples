@@ -18,4 +18,5 @@ COPY --from=builder target/gs-spring-boot-0.1.0.jar gs-spring-boot.jar
 #RUN bash -c 'touch /gs-spring-boot.jar'
 COPY entrypoint.sh /usr/local/bin/
 
+EXPOSE 8080
 ENTRYPOINT ["entrypoint.sh"]
